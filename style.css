@@ -6,7 +6,9 @@
   --muted: #9aa0aa;
 }
 
-* { box-sizing: border-box; }
+* {
+  box-sizing: border-box;
+}
 
 body {
   margin: 0;
@@ -29,7 +31,8 @@ header {
   padding-bottom: 20px;
 }
 
-input, button {
+input,
+button {
   background: var(--panel);
   color: var(--text);
   border: 1px solid var(--border);
@@ -58,25 +61,42 @@ main {
   min-height: 90px;
 }
 
-
-
-.tier-label[data-tier="S+"] { background: linear-gradient(90deg, #6a1111, #2a0f14); }
-.tier-label[data-tier="S"]  { background: linear-gradient(90deg, #7a1a1a, #3a1414); }
-.tier-label[data-tier="A"]  { background: linear-gradient(90deg, #8a3a1a, #4a2a14); }
-.tier-label[data-tier="B"]  { background: linear-gradient(90deg, #9a6a1a, #5a4a14); }
-.tier-label[data-tier="C"]  { background: linear-gradient(90deg, #8a8a1a, #4a4a14); }
-.tier-label[data-tier="D"]  { background: linear-gradient(90deg, #2a6a8a, #143a5a); }
-.tier-label[data-tier="F"]  { background: linear-gradient(90deg, #1a3a8a, #0f1a3a); }
-
-
 .tier-label {
   width: 90px;
   display: flex;
   align-items: center;
   justify-content: center;
-  backdrop-filter: blur(2px);
   font-weight: bold;
   border-radius: 6px;
+  background: #222733;
+}
+
+.tier[data-tier="S+"] .tier-label {
+  background: #6a1111;
+}
+
+.tier[data-tier="S"] .tier-label {
+  background: #7a1a1a;
+}
+
+.tier[data-tier="A"] .tier-label {
+  background: #8a3a1a;
+}
+
+.tier[data-tier="B"] .tier-label {
+  background: #9a6a1a;
+}
+
+.tier[data-tier="C"] .tier-label {
+  background: #8a8a1a;
+}
+
+.tier[data-tier="D"] .tier-label {
+  background: #2a6a8a;
+}
+
+.tier[data-tier="F"] .tier-label {
+  background: #1a3a8a;
 }
 
 .tier-content {
@@ -112,4 +132,3 @@ main {
   margin-top: 4px;
   color: var(--muted);
 }
-
