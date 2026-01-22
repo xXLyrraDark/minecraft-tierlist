@@ -23,12 +23,18 @@ function skullUrl(name) {
 fetch("tierlist.json")
   .then(r => r.json())
   .then(data => {
-    Object.entries(data).forEach(([name, tier]) => {
+    let entries;
+    if (Array.isArray(data)) {
+      entries = data.map(item => [item.name, item.tier]);
+    } else {
+      entries = Object.entries(data);
+    }
+
+    entries.forEach(([name, tier]) => {
       if (!tierNames.includes(tier)) tier = "Unranked";
 
       const card = document.createElement("div");
       card.className = "card";
-
       card.innerHTML = `
         <img src="${skullUrl(name)}" />
         <span>${name}</span>
@@ -41,4 +47,3 @@ fetch("tierlist.json")
   .catch(err => {
     console.error("Failed to load tierlist.json:", err);
   });
-
