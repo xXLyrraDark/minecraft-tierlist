@@ -1,9 +1,9 @@
 :root {
-  --bg: #0f1115;
-  --panel: #171a21;
-  --border: #2a2f3a;
-  --text: #e6e6eb;
-  --muted: #9aa0aa;
+  --bg: #0b0f1a;
+  --panel: #151b2d;
+  --border: #24304f;
+  --text: #e6e9f2;
+  --muted: #9aa4c7;
 }
 
 * {
@@ -68,35 +68,36 @@ main {
   justify-content: center;
   font-weight: bold;
   border-radius: 6px;
-  background: #222733;
+  background: #1c2440;
+  color: #ffffff;
 }
 
 .tier[data-tier="S+"] .tier-label {
-  background: #6a1111;
+  background: #7a1414;
 }
 
 .tier[data-tier="S"] .tier-label {
-  background: #7a1a1a;
+  background: #8a1e1e;
 }
 
 .tier[data-tier="A"] .tier-label {
-  background: #8a3a1a;
+  background: #9a4520;
 }
 
 .tier[data-tier="B"] .tier-label {
-  background: #9a6a1a;
+  background: #a07a28;
 }
 
 .tier[data-tier="C"] .tier-label {
-  background: #8a8a1a;
+  background: #9a9a2a;
 }
 
 .tier[data-tier="D"] .tier-label {
-  background: #2a6a8a;
+  background: #2a6fa0;
 }
 
 .tier[data-tier="F"] .tier-label {
-  background: #1a3a8a;
+  background: #1f3a8a;
 }
 
 .tier-content {
@@ -107,7 +108,7 @@ main {
 
 .card {
   width: 72px;
-  background: #1e2230;
+  background: #1b2340;
   border: 1px solid var(--border);
   border-radius: 8px;
   padding: 6px;
