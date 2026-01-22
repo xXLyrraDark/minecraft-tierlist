@@ -58,18 +58,15 @@ main {
   min-height: 90px;
 }
 
-.tier {
-  border-left: 6px solid transparent;
-}
 
 
-.tier[data-tier="S+"] { background: linear-gradient(90deg, #6a1111, #2a0f14); }
-.tier[data-tier="S"]  { background: linear-gradient(90deg, #7a1a1a, #3a1414); }
-.tier[data-tier="A"]  { background: linear-gradient(90deg, #8a3a1a, #4a2a14); }
-.tier[data-tier="B"]  { background: linear-gradient(90deg, #9a6a1a, #5a4a14); }
-.tier[data-tier="C"]  { background: linear-gradient(90deg, #8a8a1a, #4a4a14); }
-.tier[data-tier="D"]  { background: linear-gradient(90deg, #2a6a8a, #143a5a); }
-.tier[data-tier="F"]  { background: linear-gradient(90deg, #1a3a8a, #0f1a3a); }
+.tier-label[data-tier="S+"] { background: linear-gradient(90deg, #6a1111, #2a0f14); }
+.tier-label[data-tier="S"]  { background: linear-gradient(90deg, #7a1a1a, #3a1414); }
+.tier-label[data-tier="A"]  { background: linear-gradient(90deg, #8a3a1a, #4a2a14); }
+.tier-label[data-tier="B"]  { background: linear-gradient(90deg, #9a6a1a, #5a4a14); }
+.tier-label[data-tier="C"]  { background: linear-gradient(90deg, #8a8a1a, #4a4a14); }
+.tier-label[data-tier="D"]  { background: linear-gradient(90deg, #2a6a8a, #143a5a); }
+.tier-label[data-tier="F"]  { background: linear-gradient(90deg, #1a3a8a, #0f1a3a); }
 
 
 .tier-label {
@@ -77,7 +74,6 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(2px);
   font-weight: bold;
   border-radius: 6px;
