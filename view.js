@@ -4,6 +4,7 @@ const tiersEl = document.getElementById("tiers");
 tierNames.forEach(tier => {
   const row = document.createElement("div");
   row.className = "tier";
+  row.setAttribute("data-tier", tier);
 
   const label = document.createElement("div");
   label.className = "tier-label";
