@@ -51,7 +51,6 @@ main {
 .tier {
   display: flex;
   gap: 10px;
-  background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 10px;
