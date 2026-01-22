@@ -51,11 +51,17 @@ main {
 .tier {
   display: flex;
   gap: 10px;
+  background: var(--panel);
   border: 1px solid var(--border);
   border-radius: 10px;
   padding: 10px;
   min-height: 90px;
 }
+
+.tier {
+  border-left: 6px solid transparent;
+}
+
 
 .tier[data-tier="S+"] { background: linear-gradient(90deg, #6a1111, #2a0f14); }
 .tier[data-tier="S"]  { background: linear-gradient(90deg, #7a1a1a, #3a1414); }
