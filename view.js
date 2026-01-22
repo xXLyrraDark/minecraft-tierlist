@@ -21,7 +21,7 @@ function skullUrl(name) {
   return `https://mc-heads.net/avatar/${name}/64`;
 }
 
-fetch("tierlist.json")
+fetch("./tierlist.json")
   .then(r => r.json())
   .then(data => {
     let entries;
