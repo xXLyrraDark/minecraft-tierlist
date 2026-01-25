@@ -4,7 +4,7 @@ const tiersEl = document.getElementById("tiers");
 tierNames.forEach(tier => {
   const row = document.createElement("div");
   row.className = "tier";
-  row.setAttribute("data-tier", tier);
+  row.dataset.tier = tier;
 
   const label = document.createElement("div");
   label.className = "tier-label";
@@ -24,27 +24,22 @@ function skullUrl(name) {
 fetch("./tierlist.json")
   .then(r => r.json())
   .then(data => {
-    let entries;
-    if (Array.isArray(data)) {
-      entries = data.map(item => [item.name, item.tier]);
-    } else {
-      entries = Object.entries(data);
-    }
+    Object.entries(data).forEach(([tier, players]) => {
+      if (!tierNames.includes(tier)) return;
 
-    entries.forEach(([name, tier]) => {
-      if (!tierNames.includes(tier)) tier = "Unranked";
+      const container = document.querySelector(
+        `[data-tier="${tier}"] .tier-content`
+      );
 
-      const card = document.createElement("div");
-      card.className = "card";
-      card.innerHTML = `
-        <img src="${skullUrl(name)}" />
-        <span>${name}</span>
-      `;
-
-      const container = document.querySelector(`[data-tier="${tier}"] .tier-content`);
-      if (container) container.appendChild(card);
+      players.forEach(name => {
+        const card = document.createElement("div");
+        card.className = "card";
+        card.innerHTML = `
+          <img src="${skullUrl(name)}" />
+          <span>${name}</span>
+        `;
+        container.appendChild(card);
+      });
     });
   })
-  .catch(err => {
-    console.error("Failed to load tierlist.json:", err);
-  });
+  .catch(() => {});
