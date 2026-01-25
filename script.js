@@ -71,6 +71,15 @@ function addPlayer(name = null, tier = "Unranked") {
     e.dataTransfer.setData("text/plain", card.id);
   });
 
+  card.addEventListener("contextmenu", e => {
+    e.preventDefault();
+    if (confirm(`Delete ${playerName}?`)) {
+      card.remove();
+      rebuildState();
+    }
+  });
+
+  card.title = playerName;
   card.innerHTML = `
     <img src="${skullUrl(playerName)}" draggable="false" />
     <span>${playerName}</span>
@@ -114,9 +123,7 @@ function importJSON(file) {
         if (!tierNames.includes(tier)) return;
         players.forEach(name => addPlayer(name, tier));
       });
-    } catch {
-      alert("Invalid JSON file!");
-    }
+    } catch {}
   };
   reader.readAsText(file);
 }
