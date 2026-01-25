@@ -33,6 +33,7 @@ fetch("./tierlist.json")
 
       players.forEach(name => {
         const card = document.createElement("div");
+        card.title = name;
         card.className = "card";
         card.innerHTML = `
           <img src="${skullUrl(name)}" />
