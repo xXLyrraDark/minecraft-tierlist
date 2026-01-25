@@ -1,5 +1,7 @@
 const tierNames = ["Unranked", "S+", "S", "A", "B", "C", "D", "F"];
+
 const state = {};
+tierNames.forEach(t => state[t] = []);
 
 const tiersEl = document.getElementById("tiers");
 const nameInput = document.getElementById("nameInput");
@@ -21,12 +23,21 @@ tierNames.forEach(tier => {
   content.className = "tier-content";
 
   row.addEventListener("dragover", e => e.preventDefault());
+
   row.addEventListener("drop", e => {
     e.preventDefault();
     const id = e.dataTransfer.getData("text/plain");
     const card = document.getElementById(id);
-    content.appendChild(card);
-    state[card.dataset.name] = tier;
+
+    const cards = [...content.children];
+    const after = cards.find(c =>
+      e.clientX < c.getBoundingClientRect().left + c.offsetWidth / 2
+    );
+
+    if (after) content.insertBefore(card, after);
+    else content.appendChild(card);
+
+    rebuildState();
   });
 
   row.append(label, content);
@@ -37,9 +48,18 @@ function skullUrl(name) {
   return `https://mc-heads.net/avatar/${name}/64`;
 }
 
+function rebuildState() {
+  tierNames.forEach(tier => {
+    const cards = document.querySelectorAll(
+      `[data-tier="${tier}"] .card`
+    );
+    state[tier] = Array.from(cards).map(c => c.dataset.name);
+  });
+}
+
 function addPlayer(name = null, tier = "Unranked") {
   const playerName = name || nameInput.value.trim();
-  if (!playerName || state[playerName]) return;
+  if (!playerName) return;
 
   const card = document.createElement("div");
   card.className = "card";
@@ -56,14 +76,20 @@ function addPlayer(name = null, tier = "Unranked") {
     <span>${playerName}</span>
   `;
 
-  document.querySelector(`[data-tier="${tier}"] .tier-content`).appendChild(card);
-  state[playerName] = tier;
+  document
+    .querySelector(`[data-tier="${tier}"] .tier-content`)
+    .appendChild(card);
 
+  rebuildState();
   if (!name) nameInput.value = "";
 }
 
 function exportJSON() {
-  const blob = new Blob([JSON.stringify(state, null, 2)], { type: "application/json" });
+  rebuildState();
+  const blob = new Blob(
+    [JSON.stringify(state, null, 2)],
+    { type: "application/json" }
+  );
   const a = document.createElement("a");
   a.href = URL.createObjectURL(blob);
   a.download = "tierlist.json";
@@ -77,16 +103,18 @@ function importJSON(file) {
       const data = JSON.parse(e.target.result);
 
       tierNames.forEach(tier => {
-        const container = document.querySelector(`[data-tier="${tier}"] .tier-content`);
+        const container = document.querySelector(
+          `[data-tier="${tier}"] .tier-content`
+        );
         container.innerHTML = "";
+        state[tier] = [];
       });
-      Object.keys(state).forEach(k => delete state[k]);
 
-      Object.entries(data).forEach(([name, tier]) => {
-        if (tierNames.includes(tier)) addPlayer(name, tier);
-        else addPlayer(name, "Unranked");
+      Object.entries(data).forEach(([tier, players]) => {
+        if (!tierNames.includes(tier)) return;
+        players.forEach(name => addPlayer(name, tier));
       });
-    } catch (err) {
+    } catch {
       alert("Invalid JSON file!");
     }
   };
@@ -96,9 +124,11 @@ function importJSON(file) {
 addBtn.addEventListener("click", () => addPlayer());
 exportBtn.addEventListener("click", exportJSON);
 importBtn.addEventListener("click", () => fileInput.click());
+
 fileInput.addEventListener("change", e => {
   if (e.target.files.length) importJSON(e.target.files[0]);
 });
+
 nameInput.addEventListener("keydown", e => {
   if (e.key === "Enter") addPlayer();
 });
@@ -107,4 +137,3 @@ window.addEventListener("beforeunload", e => {
   e.preventDefault();
   e.returnValue = "";
 });
-
