@@ -1,12 +1,12 @@
 const tiers = {
   "Unranked": "Unranked",
-  "S+": "S+",
-  "S": "S Tier",
-  "A": "Excellent",
-  "B": "Good",
-  "C": "Average",
-  "D": "Bad",
-  "F": "Trash"
+  "S+": "TOUCH GRASS (pls)",
+  "S": "SAFTIG",
+  "A": "Stabil",
+  "B": "Casual mit WLAN",
+  "C": "Feierabend Gamer",
+  "D": "Non",
+  "F": "Bottom Frag Legend"
 };
 
 const jsonTiers = Object.keys(tiers);
