@@ -1,7 +1,19 @@
-const tierNames = ["Unranked", "S+", "S", "A", "B", "C", "D", "F"];
+const TIERS = {
+  "Unranked": "Unranked",
+  "S+": "TOUCH GRASS (pls)",
+  "S": "SAFTIG",
+  "A": "Stabil",
+  "B": "Casual mit WLAN",
+  "C": "Feierabend Gamer",
+  "D": "Non",
+  "F": "Bottom Frag Legend"
+};
+
+const tierKeys = Object.keys(TIERS);
 
 const state = {};
-tierNames.forEach(t => state[t] = []);
+tierKeys.forEach(t => state[t] = []);
+
 
 const tiersEl = document.getElementById("tiers");
 const nameInput = document.getElementById("nameInput");
@@ -10,14 +22,15 @@ const importBtn = document.getElementById("importBtn");
 const exportBtn = document.getElementById("exportBtn");
 const fileInput = document.getElementById("fileInput");
 
-tierNames.forEach(tier => {
+
+tierKeys.forEach(tierKey => {
   const row = document.createElement("div");
   row.className = "tier";
-  row.dataset.tier = tier;
+  row.dataset.tier = tierKey;
 
   const label = document.createElement("div");
   label.className = "tier-label";
-  label.textContent = tier;
+  label.textContent = TIERS[tierKey];
 
   const content = document.createElement("div");
   content.className = "tier-content";
@@ -28,15 +41,14 @@ tierNames.forEach(tier => {
     e.preventDefault();
     const id = e.dataTransfer.getData("text/plain");
     const card = document.getElementById(id);
+    if (!card) return;
 
     const cards = [...content.children];
     const after = cards.find(c =>
       e.clientX < c.getBoundingClientRect().left + c.offsetWidth / 2
     );
 
-    if (after) content.insertBefore(card, after);
-    else content.appendChild(card);
-
+    after ? content.insertBefore(card, after) : content.appendChild(card);
     rebuildState();
   });
 
@@ -49,11 +61,11 @@ function skullUrl(name) {
 }
 
 function rebuildState() {
-  tierNames.forEach(tier => {
+  tierKeys.forEach(tier => {
     const cards = document.querySelectorAll(
       `[data-tier="${tier}"] .card`
     );
-    state[tier] = Array.from(cards).map(c => c.dataset.name);
+    state[tier] = [...cards].map(c => c.dataset.name);
   });
 }
 
@@ -111,16 +123,15 @@ function importJSON(file) {
     try {
       const data = JSON.parse(e.target.result);
 
-      tierNames.forEach(tier => {
-        const container = document.querySelector(
+      tierKeys.forEach(tier => {
+        document.querySelector(
           `[data-tier="${tier}"] .tier-content`
-        );
-        container.innerHTML = "";
+        ).innerHTML = "";
         state[tier] = [];
       });
 
       Object.entries(data).forEach(([tier, players]) => {
-        if (!tierNames.includes(tier)) return;
+        if (!tierKeys.includes(tier)) return;
         players.forEach(name => addPlayer(name, tier));
       });
     } catch {}
