@@ -1,135 +1,119 @@
-:root {
-  --bg: #0b0f1a;
-  --panel: #151b2d;
-  --border: #24304f;
-  --text: #e6e9f2;
-  --muted: #9aa4c7;
+:root{
+  --bg:#0b0f1a;
+  --panel:#151b2d;
+  --border:#24304f;
+  --text:#e6e9f2;
+  --muted:#9aa4c7;
 }
 
-* {
-  box-sizing: border-box;
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family:system-ui,sans-serif;
 }
 
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: system-ui, sans-serif;
+header{
+  padding:14px;
+  text-align:center;
+  font-size:18px;
+  font-weight:600;
 }
 
-header {
-  padding: 20px;
-  text-align: center;
-  font-size: 22px;
-  font-weight: 600;
+.controls{
+  display:flex;
+  gap:8px;
+  justify-content:center;
+  padding-bottom:14px;
 }
 
-.controls {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  padding-bottom: 20px;
+input,button{
+  background:var(--panel);
+  color:var(--text);
+  border:1px solid var(--border);
+  padding:6px 10px;
+  border-radius:6px;
+  font-size:13px;
 }
 
-input,
-button {
-  background: var(--panel);
-  color: var(--text);
-  border: 1px solid var(--border);
-  padding: 8px 12px;
-  border-radius: 6px;
+button{cursor:pointer}
+
+main{
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  padding:0 12px 32px;
 }
 
-button {
-  cursor: pointer;
+.tier{
+  display:flex;
+  gap:8px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:8px;
+  min-height:70px;
 }
 
-main {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 0 16px 40px;
+.tier-label{
+  width:78px;
+  padding:6px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  font-size:12px;
+  font-weight:600;
+  line-height:1.15;
+  border-radius:6px;
+  background:#1c2440;
+  color:#fff;
+  word-break:break-word;
 }
 
-.tier {
-  display: flex;
-  gap: 10px;
-  background: var(--panel);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 10px;
-  min-height: 90px;
+.tier[data-tier="S+"] .tier-label{background:#7a1414}
+.tier[data-tier="S"] .tier-label{background:#8a1e1e}
+.tier[data-tier="A"] .tier-label{background:#9a4520}
+.tier[data-tier="B"] .tier-label{background:#a07a28}
+.tier[data-tier="C"] .tier-label{background:#9a9a2a}
+.tier[data-tier="D"] .tier-label{background:#2a6fa0}
+.tier[data-tier="F"] .tier-label{background:#1f3a8a}
+
+.tier-content{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  align-items:flex-start;
 }
 
-.tier-label {
-  width: 90px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
-  border-radius: 6px;
-  background: #1c2440;
-  color: #ffffff;
+.card{
+  width:64px;
+  background:#1b2340;
+  border:1px solid var(--border);
+  border-radius:6px;
+  padding:4px 4px 6px;
+  text-align:center;
+  cursor:grab;
+  user-select:none;
 }
 
-.tier[data-tier="S+"] .tier-label {
-  background: #7a1414;
+.card:active{cursor:grabbing}
+
+.card img{
+  width:48px;
+  height:48px;
+  display:block;
+  margin:0 auto;
+  pointer-events:none;
 }
 
-.tier[data-tier="S"] .tier-label {
-  background: #8a1e1e;
-}
-
-.tier[data-tier="A"] .tier-label {
-  background: #9a4520;
-}
-
-.tier[data-tier="B"] .tier-label {
-  background: #a07a28;
-}
-
-.tier[data-tier="C"] .tier-label {
-  background: #9a9a2a;
-}
-
-.tier[data-tier="D"] .tier-label {
-  background: #2a6fa0;
-}
-
-.tier[data-tier="F"] .tier-label {
-  background: #1f3a8a;
-}
-
-.tier-content {
-  display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.card {
-  width: 72px;
-  background: #1b2340;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  padding: 6px;
-  text-align: center;
-  cursor: grab;
-  user-select: none;
-}
-
-.card:active {
-  cursor: grabbing;
-}
-
-.card img {
-  width: 64px;
-  height: 64px;
-  pointer-events: none;
-}
-
-.card span {
-  display: block;
-  font-size: 12px;
-  margin-top: 4px;
-  color: var(--muted);
+.card span{
+  display:block;
+  margin-top:4px;
+  font-size:11px;
+  line-height:1.15;
+  color:var(--muted);
+  word-break:break-word;
 }
