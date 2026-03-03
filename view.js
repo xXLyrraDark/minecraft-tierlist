@@ -1,14 +1,25 @@
-const tierNames = ["Unranked", "S+", "S", "A", "B", "C", "D", "F"];
+const tiers = {
+  "Unranked": "Unranked",
+  "S+": "God Tier",
+  "S": "S Tier",
+  "A": "Excellent",
+  "B": "Good",
+  "C": "Average",
+  "D": "Bad",
+  "F": "Trash"
+};
+
+const jsonTiers = Object.keys(tiers);
 const tiersEl = document.getElementById("tiers");
 
-tierNames.forEach(tier => {
+jsonTiers.forEach(tierKey => {
   const row = document.createElement("div");
   row.className = "tier";
-  row.dataset.tier = tier;
+  row.dataset.tier = tierKey;
 
   const label = document.createElement("div");
   label.className = "tier-label";
-  label.textContent = tier;
+  label.textContent = tiers[tierKey];
 
   const content = document.createElement("div");
   content.className = "tier-content";
@@ -17,30 +28,25 @@ tierNames.forEach(tier => {
   tiersEl.appendChild(row);
 });
 
-function skullUrl(name) {
-  return `https://mc-heads.net/avatar/${name}/64`;
-}
-
 fetch("./tierlist.json")
   .then(r => r.json())
   .then(data => {
-    Object.entries(data).forEach(([tier, players]) => {
-      if (!tierNames.includes(tier)) return;
+    Object.entries(data).forEach(([tierKey, players]) => {
+      if (!jsonTiers.includes(tierKey)) return;
 
       const container = document.querySelector(
-        `[data-tier="${tier}"] .tier-content`
+        `[data-tier="${tierKey}"] .tier-content`
       );
 
       players.forEach(name => {
         const card = document.createElement("div");
-        card.title = name;
         card.className = "card";
+        card.title = name;
         card.innerHTML = `
-          <img src="${skullUrl(name)}" />
+          <img src="https://mc-heads.net/avatar/${name}/64" />
           <span>${name}</span>
         `;
         container.appendChild(card);
       });
     });
-  })
-  .catch(() => {});
+  });
