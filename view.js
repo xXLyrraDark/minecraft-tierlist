@@ -1,6 +1,6 @@
 const tiers = {
   "Unranked": "Unranked",
-  "S+": "God Tier",
+  "S+": "S+",
   "S": "S Tier",
   "A": "Excellent",
   "B": "Good",
